@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.5.3</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  <groupId>com.huyu</groupId>
+  <artifactId>test-graalvm-log-maven</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>test-graalvm-log-maven</name>
+  <description>test-graalvm-log-maven</description>
+  <url/>
+  <licenses>
+    <license/>
+  </licenses>
+  <developers>
+    <developer/>
+  </developers>
+  <scm>
+    <connection/>
+    <developerConnection/>
+    <tag/>
+    <url/>
+  </scm>
+  <properties>
+    <java.version>21</java.version>
+    <lombok.version>1.18.38</lombok.version>
+    <!--    <log4j2.version>2.25.0</log4j2.version>-->
+    <fastjson2.version>2.0.22</fastjson2.version>
+    <httpcore.version>4.4.15</httpcore.version>
+    <httpclient.version>4.5.13</httpclient.version>
+    <httpmime.version>4.5.13</httpmime.version>
+    <mybatis-spring-boot.version>3.0.3</mybatis-spring-boot.version>
+    <druid-spring-boot.version>1.2.18</druid-spring-boot.version>
+    <jaxen.version>1.1.6</jaxen.version>
+    <hutool-all.version>5.8.16</hutool-all.version>
+    <apache-commons-pool2.version>2.11.1</apache-commons-pool2.version>
+    <mail.version>1.4.7</mail.version>
+    <redisson-spring-boot.version>3.37.0</redisson-spring-boot.version>
+    <msgpack-core.version>0.9.1</msgpack-core.version>
+    <jackson-databind.version>2.17.2</jackson-databind.version>
+    <ali-pay-sdk.version>4.34.0.ALL</ali-pay-sdk.version>
+    <minio.version>8.5.4</minio.version>
+    <aliyun-oss.version>3.18.1</aliyun-oss.version>
+    <mysql-connector-java.version>9.0.0</mysql-connector-java.version>
+  </properties>
+
+
+  <!--  <repositories>-->
+  <!--    <repository>-->
+  <!--      <id>sonatype-oss-snapshots</id>-->
+  <!--      <name>Sonatype OSS Snapshots Repository</name>-->
+  <!--      <url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
+  <!--    </repository>-->
+  <!--  </repositories>-->
+
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.msgpack</groupId>
+      <artifactId>msgpack-core</artifactId>
+      <version>${msgpack-core.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.msgpack</groupId>
+      <artifactId>jackson-dataformat-msgpack</artifactId>
+      <version>${msgpack-core.version}</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.redisson</groupId>
+      <artifactId>redisson-spring-boot-starter</artifactId>
+      <version>3.37.0</version>
+    </dependency>
+
+
+    <!--        rocketmq-->
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-spring-boot-starter</artifactId>
+      <version>2.3.3</version>
+      <exclusions>
+        <exclusion>
+          <groupId>io.grpc</groupId>
+          <artifactId>grpc-netty-shaded</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>io.grpc</groupId>
+          <artifactId>grpc-stub</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.alibaba</groupId>
+          <artifactId>fastjson</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.rocketmq</groupId>
+          <artifactId>rocketmq-common</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.rocketmq</groupId>
+          <artifactId>rocketmq-client</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.rocketmq</groupId>
+          <artifactId>rocketmq-remoting</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-client</artifactId>
+      <version>5.3.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-common</artifactId>
+      <version>5.3.3</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.alibaba</groupId>
+          <artifactId>fastjson</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>2.0.22</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba.fastjson2</groupId>
+      <artifactId>fastjson2</artifactId>
+      <version>2.0.22</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba.fastjson2</groupId>
+      <artifactId>fastjson2-extension</artifactId>
+      <version>2.0.22</version>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-stub</artifactId>
+      <version>1.73.0</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-netty-shaded</artifactId>
+      <version>1.73.0</version>
+    </dependency>
+
+
+    <!-- 引入log4j2依赖 -->
+    <dependency>
+      <groupId>com.lmax</groupId>
+      <artifactId>disruptor</artifactId>
+      <version>3.4.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-log4j2</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>log4j-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>log4j-slf4j2-impl</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>log4j-jul</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
+      <version>2.25.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.25.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jul</artifactId>
+    </dependency>
+
+    <!--web相关-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>info.picocli</groupId>
+      <artifactId>picocli</artifactId>
+      <version>4.7.3</version>
+    </dependency>
+
+    <!--    <dependency>-->
+    <!--      <groupId>org.springframework.boot</groupId>-->
+    <!--      <artifactId>spring-boot-starter-test</artifactId>-->
+    <!--      <scope>test</scope>-->
+    <!--    </dependency>-->
+
+
+    <!--     druid   连接池-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid-spring-boot-starter</artifactId>
+      <version>${druid-spring-boot.version}</version>
+    </dependency>
+
+    <!--    sharding-jdbc-->
+    <dependency>
+      <groupId>org.apache.shardingsphere</groupId>
+      <artifactId>shardingsphere-jdbc</artifactId>
+      <version>5.5.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.shardingsphere</groupId>
+          <artifactId>shardingsphere-test-util</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+
+    <!--    引入这个,自动回加入jdbc,jdbc会自动引用事务的tx包-->
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <version>3.0.3</version>
+    </dependency>
+
+    <!--    <dependency>-->
+    <!--      <groupId>org.mybatis.spring.native</groupId>-->
+    <!--      <artifactId>mybatis-spring-native-extensions</artifactId>-->
+    <!--      <version>0.1.0-SNAPSHOT</version>-->
+    <!--    </dependency>-->
+
+    <dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <version>9.0.0</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.graalvm.buildtools</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <version>0.10.6</version>
+        <configuration>
+          <skipTests>true</skipTests>
+          <mainClass>com.huyu.testgraalvmlogmaven.TestGraalvmLogMavenApplication</mainClass>
+          <imageName>test</imageName>
+          <!--          测试-->
+          <!--          <buildArgs>-->
+          <!--
+          -J-Xmx14g,-J-Xss300k,-O0,-g,&#45;&#45;enable-https,&#45;&#45;enable-http,&#45;&#45;initialize-at-run-time=io.grpc.netty.shaded.io.netty-->
+          <!--          </buildArgs>-->
+          <!--          用于本机测试-->
+          <!--          <buildArgs>-->
+          <!--
+          -J-Xmx14g,-J-Xss300k,-Ob,&#45;&#45;verbose,&#45;&#45;initialize-at-run-time=io.grpc.netty.shaded.io.netty-->
+          <!--          </buildArgs>-->
+
+          <!--linux端部署-->
+          <buildArgs>
+            -J-XX:-UseParallelGC,-J-Xss300k,-J-XX:+UseG1GC,-J-Xmx13g,--gc=G1,-Ob,--verbose,-H:TraceClassInitialization=true,--initialize-at-run-time=io.grpc.netty.shaded.io.netty,--report-unsupported-elements-at-runtime,-H:+UnlockExperimentalVMOptions
+          </buildArgs>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>build</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <!--        <executions>-->
+        <!--          <execution>-->
+        <!--            <id>build-native</id>-->
+        <!--            <goals>-->
+        <!--              <goal>-->
+        <!--                compile-no-fork-->
+        <!--              </goal>-->
+        <!--            </goals>-->
+        <!--            <configuration>-->
+        <!--              <jvmArgs>-->
+        <!--                &#45;&#45;enable-preview-->
+        <!--              </jvmArgs>-->
+        <!--            </configuration>-->
+        <!--            <phase>package</phase>-->
+        <!--          </execution>-->
+        <!--        </executions>-->
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <!--        <configuration>-->
+        <!--          <mainClass>com.huyu.testgraalvmlogmaven.TestGraalvmLogMavenApplication</mainClass>-->
+        <!--          <jvmArguments>&#45;&#45;enable-preview-->
+        <!--          </jvmArguments>-->
+        <!--        </configuration>-->
+        <!--        <executions>-->
+        <!--          <execution>-->
+        <!--            <id>process-aot</id>-->
+        <!--            <goals>-->
+        <!--              <goal>process-aot</goal>-->
+        <!--            </goals>-->
+        <!--            <configuration>-->
+        <!--              &lt;!&ndash; JVM 参数 &ndash;&gt;-->
+        <!--              <jvmArguments>-->
+        <!--                -Daot=true-->
+        <!--                &#45;&#45;enable-preview-->
+        <!--              </jvmArguments>-->
+        <!--              <compilerArguments>-->
+        <!--                &#45;&#45;enable-preview-->
+        <!--              </compilerArguments>-->
+        <!--            </configuration>-->
+        <!--          </execution>-->
+        <!--          <execution>-->
+        <!--            <goals>-->
+        <!--              <goal>repackage</goal>-->
+        <!--            </goals>-->
+        <!--          </execution>-->
+        <!--        </executions>-->
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

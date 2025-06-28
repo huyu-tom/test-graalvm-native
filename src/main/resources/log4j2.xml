@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出-->
+<!--monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数-->
+<configuration monitorInterval="5">
+  <!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+  <!--变量配置-->
+  <Properties>
+    <!--应用名称-->
+    <property name="appName" value="blog"/>
+    <!-- 日志输出格式地址  https://blog.csdn.net/Q176782/article/details/78288734-->
+    <!--    %d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间,输出到毫秒的时间-->
+    <!--    %-5level : 输出日志级别，-5表示左对齐并且固定输出5个字符，如果不足在右边补0-->
+    <!--    %c : logger的名称(%logger)-->
+    <!--    %t : 输出当前线程名称-->
+    <!--    %p : 日志输出格式-->
+    <!--    %m : 日志内容，即 logger.info("message")-->
+    <!--    %n : 换行符-->
+    <!--    %C : Java类名(%F)-->
+    <!--    %L : 行号-->
+    <!--    %M : 方法名-->
+    <!--    %l : 输出语句所在的行数, 包括类名、方法名、文件名、行数-->
+    <!--    hostName : 本地机器名-->
+    <!--    hostAddress : 本地ip地址-->
+    <Property name="appName">blog</Property>
+    <Property name="LOG_ROOT">log</Property>
+    <Property name="LOG_DATAFORMAT_PATTERN">yyyy-MM-dd HH:mm:ss.SSS</Property>
+    <Property name="LOG_LEVEL_PATTERN">%5p</Property>
+    <Property name="logFormat">
+      %d{${LOG_DATAFORMAT_PATTERN}} ${LOG_LEVEL_PATTERN} [${appName}] [%t][%C:%L]: %m%n
+    </Property>
+    <!-- 定义日志存储的路径 -->
+    <property name="FILE_PATH" value="./log"/>
+  </Properties>
+
+  <appenders>
+
+    <!--在开发的时候采用该方案-->
+    <console name="console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${logFormat}"/>
+    </console>
+
+    <!--文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，适合临时测试用-->
+    <!--    <File name="Filelog" fileName="${FILE_PATH}/test.log" append="false">-->
+    <!--      <PatternLayout pattern="${LOG_PATTERN}"/>-->
+    <!--    </File>-->
+
+    <RollingFile name="file"
+      append="true"
+      immediateFlush="false"
+      filePattern="${FILE_PATH}/${appName}-%d{yyyy.MM.dd.HH}.log">
+      <!-- 日志的输出格式 -->
+      <PatternLayout pattern="${logFormat}"/>
+      <!--不起用压缩,压缩会消耗本身内存和CPU,影响业务,而是别的机器来进行压缩-->
+      <Policies>
+        <!--interval属性用来指定多久滚interval属性用来指定多久滚动一次动一次，默认是1 hour-->
+        <TimeBasedTriggeringPolicy interval="1"/>
+        <!--指定文件大小-->
+        <SizeBasedTriggeringPolicy size="10MB"/>
+      </Policies>
+      <DirectWriteRolloverStrategy maxFiles="72"/>
+    </RollingFile>
+  </appenders>
+
+  <loggers>
+    <!--    includeLocation = true 表示需要定位代码位置-->
+    <!--default logger -->
+    <!--    <Asyncroot level="info" includeLocation="false">-->
+    <!--      &lt;!&ndash;      <appender-ref ref="console"/>&ndash;&gt;-->
+    <!--      <appender-ref ref="file"/>-->
+    <!--    </Asyncroot>-->
+
+    <Asyncroot level="debug" includeLocation="true">
+      <!--      <appender-ref ref="console"/>-->
+      <appender-ref ref="file"/>
+    </Asyncroot>
+
+
+    <AsyncLogger name="com.huyu" level="debug" additivity="false" includeLocation="false">
+      <!--      <appender-ref ref="console"/>-->
+      <appender-ref ref="file"/>
+    </AsyncLogger>
+
+
+    <AsyncLogger name="org.apache" level="error" additivity="false" includeLocation="true">
+      <appender-ref ref="file"/>
+    </AsyncLogger>
+
+
+    <AsyncLogger name="com.alibaba" level="error" additivity="false" includeLocation="true">
+      <!--      <appender-ref ref="console"/>-->
+      <appender-ref ref="file"/>
+    </AsyncLogger>
+
+
+    <AsyncLogger name="org.mybatis" level="error" additivity="false" includeLocation="true">
+      <appender-ref ref="file"/>
+      <!--      <appender-ref ref="console"/>-->
+    </AsyncLogger>
+
+
+    <AsyncLogger name="org.springframework" level="error" additivity="false" includeLocation="true">
+      <!--      <appender-ref ref="file"/>-->
+      <appender-ref ref="file"/>
+    </AsyncLogger>
+  </loggers>
+
+</configuration>

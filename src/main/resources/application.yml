@@ -1,0 +1,226 @@
+spring:
+  data:
+  redis:
+    redisson:
+      #      file: classpath:redisson.yaml
+      config: |
+        #singleServerConfig:
+        #  #连接地址
+        #  address: "redis://192.168.192.135:6001"
+        #  #客服端的名称
+        #  clientName: redisson
+        #  #数据库的库号
+        #  database: 0
+        #
+        #  ##连接相关
+        #
+        #  #连接池大小
+        #  connectionPoolSize: 64
+        #  #空闲连接超时,毫秒单位(默认为10s)
+        #  idleConnectionTimeout: 10000
+        #  #连接到任何 Redis 服务器时超时。
+        #  connectTimeout: 10000
+        #
+        #  #连接最小空闲大小
+        #  connectionMinimumIdleSize: 24
+        #  timeout: 3000
+        #
+        #  #重试次数
+        #  retryAttempts: 3
+        #  #将执行另一个尝试发送 Redis 命令的时间间隔。以毫秒为单位的值。1.5秒
+        #  retryInterval: 1500
+        #
+        #
+        #  password: huyu123456789huyucxm
+        #
+        #
+        #  #订阅相关的连接配置
+        #  #最小空闲 Redis 订阅连接量。
+        #  subscriptionConnectionMinimumIdleSize: 1
+        #  # 每个 Redis 连接的订阅限制
+        #  subscriptionsPerConnection: 5
+        #  #Redis 订阅连接最大池大小。
+        #  subscriptionConnectionPoolSize: 50
+        #
+        #
+        #  #ping的间隔(30s)
+        #  pingConnectionInterval: 30000
+        #  #保持长连接(默认为false)
+        #  keepAlive: true
+        #  #TCP无延迟
+        #  tcpNoDelay: true
+        sentinelServersConfig:
+          idleConnectionTimeout: 10000
+          connectTimeout: 10000
+          timeout: 3000
+          retryAttempts: 3
+          retryInterval: 1500
+          failedSlaveReconnectionInterval: 3000
+          failedSlaveCheckInterval: 60000
+          password: huyu123456789huyucxm
+          subscriptionsPerConnection: 5
+          loadBalancer: !<org.redisson.connection.balancer.RoundRobinLoadBalancer> {}
+          subscriptionConnectionMinimumIdleSize: 1
+          subscriptionConnectionPoolSize: 50
+          slaveConnectionMinimumIdleSize: 24
+          slaveConnectionPoolSize: 64
+          masterConnectionMinimumIdleSize: 24
+          masterConnectionPoolSize: 64
+          readMode: "MASTER_SLAVE"
+          subscriptionMode: "MASTER"
+          sentinelAddresses:
+            - "redis://192.168.192.134:26000"
+            - "redis://192.168.192.134:26001"
+            - "redis://192.168.192.134:26002"
+          masterName: "redis-master"
+          database: 0
+
+
+        threads: 16
+        ## 使用的所有内部 Redis 客户端之间共享的线程数,一般是CPU核心数*2
+        nettyThreads: 32
+        ## redis数据的编解码 (https://github.com/redisson/redisson/wiki/4.-data-serialization)
+        codec: !<org.redisson.codec.MsgPackJacksonCodec> { }
+        #        redis采用netty什么模式进行网络传输
+        transportMode: "NIO"
+        #定义是否在 Redis 端使用 Lua 脚本缓存。大多数 Redisson 方法都是基于 Lua 脚本的，启用此设置可以提高此类方法的执行速度并节省网络流量。
+        useScriptCache: true
+        # 定义是保持 PubSub 消息按到达顺序处理还是同时处理消息。此设置仅适用于每个频道的 PubSub 消息。
+        keepPubSubOrder: true
+
+
+        #看门狗设置(锁)
+        #RLock 对象看门狗超时（以毫秒为单位) ,默认为30s
+        lockWatchdogTimeout: 30000
+        # 定义是否在获取锁后检查同步从数量与实际从数量。
+        checkLockSyncedSlaves: true
+        # 以毫秒为单位的可靠主题看门狗超时,默认为60s
+        reliableTopicWatchdogTimeout: 60000
+
+
+        #用于数据清理  适用于JCache, RSetCache, RClusteredSetCache, RMapCache, RListMultimapCache, RSetMultimapCache, RLocalCachedMapCache,RClusteredLocalCachedMapCache对象
+        #定义过期条目清理过程的最小延迟（以秒为单位）
+        minCleanUpDelay: 5
+        #定义过期条目清理过程的最大延迟秒数
+        maxCleanUpDelay: 1800
+        #定义过期条目清理过程中每次操作删除的过期密钥数量
+        cleanUpKeysAmount: 100
+
+  #    服务名称
+  application:
+    name: blog
+
+
+  ## 邮件
+  mail:
+    username: arran@jiyunamei.com
+    password: Fbfysxbpqj666
+    host: smtp.qiye.aliyun.com
+    port: 25
+    default-encoding: UTF-8
+
+
+  # 配置 DataSource Driver
+  #  datasource:
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    # 指定 YAML 配置文件
+  #    url: jdbc:mysql://192.168.192.134:3305/sentinel?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+  #    username: root
+  #    password: cxm1314
+  #    # 连接池配置
+  #    hikari:
+  #      minimumIdle: 1
+  #      # 这个连接不是实际的物理连接，而是sharding-jdbc抽象的连接,底层的连接还未创建,建议跟处理业务的线程数
+  #      # 一致,这样就没有在里面等待的情况,最大最小一致,能达到最好性能
+  #      maximumPoolSize: 100
+  #      connectionTimeout: 30000
+
+  # 配置 DataSource Driver
+  datasource:
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    # 指定 YAML 配置文件
+    url: jdbc:shardingsphere:classpath:sharding-jdbc.yml
+    hikari:
+      minimumIdle: 256
+      # 这个连接不是实际的物理连接，而是sharding-jdbc抽象的连接,底层的连接还未创建,建议跟处理业务的线程数
+      # 一致,这样就没有在里面等待的情况,最大最小一致,能达到最好性能
+      maximumPoolSize: 256
+      connectionTimeout: 2000
+
+#分页配置
+pagehelper:
+  ##分页合理化参数，默认值为false。当该参数设置为 true 时，pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页
+  reasonable: true
+  ##
+  default-count: true
+  ##当查询count的情况的时候,排除order by语句
+  keep-order-by: false
+  ##当查询count的情况的时候,排除子查询中order by语句
+  keep-sub-select-order-by: false
+  ##不进行关闭连接
+  close-conn: false
+  ##方言 (因为采用了sharding-jdbc的驱动，无法检测数据库的方言,所以只能自己指定)
+  helper-dialect: mysql
+
+
+
+mybatis:
+  #  mapper-locations: classpath:/mapper/*.xml
+  lazy-initialization: false
+  configuration:
+    map-underscore-to-camel-case: true
+
+#  服务绑定的端口号
+server:
+  port: 10102
+
+logging:
+  level:
+    default: debug
+    com.huyu: debug
+#  config: classpath:/log4j2.xml
+
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  #    prometheus:
+  #      enabled: true
+  #    metrics:
+  #      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude:
+    enabled-by-default: true
+  metrics:
+    tags:
+      application: blog
+      instance: ${host_address:127.0.0.1}:${server.port}
+
+
+# rocketmq的配置
+rocketmq:
+  producer:
+    group: blog
+    retry-next-server: true
+    send-message-timeout: 3000
+  name-server: 192.168.192.134:9876;192.168.192.134:9874;192.168.192.134:9875
+
+## rocketmq5.x配置
+#rocketmq:
+#  producer:
+#    endpoints: 192.168.192.134:18080;192.168.192.134:18080
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+sentinel:
+  app-name: ${spring.application.name}
+  cluster-name: blog-cluster
+  instance-name: blog-1
+  env: test
+

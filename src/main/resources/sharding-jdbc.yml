@@ -1,0 +1,276 @@
+dataSources:
+  sentinel:
+    username: root
+    password: cxm1314
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.192.134:3305/sentinel?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    #    url: jdbc:mysql://192.168.192.111:3305/blog_project?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    #dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    name: sentinel
+    initialSize: 0
+    minIdle: 1
+    #连接池最大活跃连接数量，当连接数量达到该值时，再获取新连接时，将处于等待状态，直到有连接被释放，才能借用成功
+    maxActive: 2
+    #配置获取连接等待超时的时间(有可能池资源紧张)
+    #    maxWait: 1000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+  #    timeBetweenEvictionRunsMillis: 2000
+  #    #配置一个连接在池中最小和最大生存的时间，单位是毫秒
+  #    minEvictableIdleTimeMillis: 600000
+  #    maxEvictableIdleTimeMillis: 900000
+  #    #连接池中的minIdle数量以内的连接，空闲时间超过minEvictableIdleTimeMillis，则会执行keepAlive操作。实际项目中建议配置成true
+  #    keepAlive: true
+  #    # 控制查询结果最大超时,单位是s
+  #    queryTimeout: 1
+
+  #    validationQuery: select 1
+  blog-master:
+    username: root
+    password: cxm1314
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.192.134:3305/blog?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    #dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    name: blog_192.168.192.134_3305_master
+
+    initialSize: 2
+    # 基于PG的公式 2 * CPU核心 + 磁盘数
+    minIdle: 56
+    #连接池最大活跃连接数量，当连接数量达到该值时，再获取新连接时，将处于等待状态，直到有连接被释放，才能借用成功
+    maxActive: 128
+    #配置获取连接等待超时的时间(有可能池资源紧张)
+    maxWait: 6000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    #    timeBetweenEvictionRunsMillis: 2000
+    #配置一个连接在池中最小和最大生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 600000
+    maxEvictableIdleTimeMillis: 900000
+    #连接池中的minIdle数量以内的连接，空闲时间超过minEvictableIdleTimeMillis，则会执行keepAlive操作。实际项目中建议配置成true
+    keepAlive: true
+
+
+    # 控制查询结果最大超时,单位是s Statement.setQueryTimeout(int) 调用的话,会导致大量的 MySQL Statement Cancellation Timer [184] (TIMED_WblogTING) 线程
+    # 事务操作查询超时时间是 3s
+  #    transactionQueryTimeout: 3
+  #    # 普通查询超时时间是3s
+  #    queryTimeout: 2
+  blog-slave1:
+    username: root
+    password: cxm1314
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.192.134:3306/blog?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    #    url: jdbc:mysql://192.168.192.111:3306/blog_project?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    ## dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    name: blog_192.168.192.134_3306_slave1
+
+    initialSize: 2
+    minIdle: 56
+    #连接池最大活跃连接数量，当连接数量达到该值时，再获取新连接时，将处于等待状态，直到有连接被释放，才能借用成功
+    maxActive: 128
+    #配置获取连接等待超时的时间(有可能池资源紧张)
+    maxWait: 6000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    #    timeBetweenEvictionRunsMillis: 2000
+    #配置一个连接在池中最小和最大生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 600000
+    maxEvictableIdleTimeMillis: 900000
+    #连接池中的minIdle数量以内的连接，空闲时间超过minEvictableIdleTimeMillis，则会执行keepAlive操作。实际项目中建议配置成true
+    keepAlive: true
+    # 控制查询结果最大超时,单位是s
+  #    queryTimeout: 2
+
+  blog-slave2:
+    username: root
+    password: cxm1314
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.192.134:3307/blog?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    #    url: jdbc:mysql://192.168.192.111:3307/blog_project?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    dataSourceClassName: com.alibaba.druid.pool.DruidDataSource
+    #    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    name: blog_192.168.192.134_3307_slave2
+
+    #影响启动速度
+    initialSize: 2
+    minIdle: 56
+    #连接池最大活跃连接数量，当连接数量达到该值时，再获取新连接时，将处于等待状态，直到有连接被释放，才能借用成功
+    maxActive: 128
+    #配置获取连接等待超时的时间(有可能池资源紧张)
+    maxWait: 6000
+    #    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    #    timeBetweenEvictionRunsMillis: 2000
+    #配置一个连接在池中最小和最大生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 600000
+    maxEvictableIdleTimeMillis: 900000
+    #连接池中的minIdle数量以内的连接，空闲时间超过minEvictableIdleTimeMillis，则会执行keepAlive操作。实际项目中建议配置成true
+    keepAlive: true
+    # 控制查询结果最大超时,单位是s
+    # queryTimeout: 2
+
+
+#mode:
+#  type: Standalone
+#  repository:
+#    type: JDBC # 持久化仓库类型
+#    props: # 持久化仓库所需属性
+
+
+rules:
+  # 读写分离
+  - !READWRITE_SPLITTING
+    dataSources:
+      blog-master-slave-datasource: # 读写分离逻辑数据源名称，默认使用 Groovy 的行表达式 SPI 实现来解析
+        writeDataSourceName: blog-master # 写库数据源名称，默认使用 Groovy 的行表达式 SPI 实现来解析
+        readDataSourceNames:
+          - blog-slave1   # 读库数据源名称，多个从数据源用逗号分隔，默认使用 Groovy 的行表达式 SPI 实现来解析
+          - blog-slave2
+        transactionalReadQueryStrategy: DYNAMIC # 事务内读请求的路由策略，可选值：PRIMARY（路由至主库）、FIXED（同一事务内路由至固定数据源）、DYNAMIC（同一事务内路由至非固定数据源）。默认值：DYNAMIC
+        loadBalancerName: blog-master-slave-load-balance # 负载均衡算法名称
+
+    # 负载均衡算法配置
+    loadBalancers:
+      blog-master-slave-load-balance: # 负载均衡算法名称
+        #负载均衡算法名称对应的负载均衡算法是
+        # ROUND_ROBIN (轮询算法)  不需要配置属性
+        # RANDOM (随机)  不需要配置属性
+        # WEIGHT (权重) 需要配置属性
+        ##https://shardingsphere.apache.org/document/5.3.2/cn/user-manual/common-config/builtin-algorithm/load-balance/
+        type: ROUND_ROBIN
+        props: # 负载均衡算法属性配置
+
+  # 分片算法
+  - !SHARDING
+    tables:
+      #表示分表算法
+      user:
+        actualDataNodes: blog-master-slave-datasource.user
+      role:
+        actualDataNodes: blog-master-slave-datasource.role
+      user_role:
+        actualDataNodes: blog-master-slave-datasource.user_role
+      menu:
+        actualDataNodes: blog-master-slave-datasource.menu
+      role_menu:
+        actualDataNodes: blog-master-slave-datasource.role_menu
+
+      user_operation:
+        actualDataNodes: blog-master-slave-datasource.user_operation
+
+      category:
+        actualDataNodes: blog-master-slave-datasource.category
+      tag:
+        actualDataNodes: blog-master-slave-datasource.tag
+
+      oss_config:
+        actualDataNodes: blog-master-slave-datasource.oss_config
+      oss_business:
+        actualDataNodes: blog-master-slave-datasource.oss_business
+      oss_resource:
+        actualDataNodes: blog-master-slave-datasource.oss_resource
+      business_oss_config:
+        actualDataNodes: blog-master-slave-datasource.business_oss_config
+
+
+      top:
+        actualDataNodes: blog-master-slave-datasource.top
+
+      moment:
+        actualDataNodes: blog-master-slave-datasource.moment
+
+      article:
+        actualDataNodes: blog-master-slave-datasource.article
+      article_content:
+        actualDataNodes: blog-master-slave-datasource.article_content
+      article_series:
+        actualDataNodes: blog-master-slave-datasource.article_series
+      rules:
+        actualDataNodes: sentinel.rules
+
+      user_receive_like:
+        actualDataNodes: blog-master-slave-datasource.user_receive_like
+
+      comment:
+        actualDataNodes: blog-master-slave-datasource.comment
+      reply_user_opt:
+        actualDataNodes: blog-master-slave-datasource.reply_user_opt
+
+      sys_web_config:
+        actualDataNodes: blog-master-slave-datasource.sys_web_config
+    #        auditStrategy:
+    #          auditorNames:
+    #            - sharding_key_required_auditor
+    #          allowHintDisable: true
+    #      t_order_item:
+    #        actualDataNodes: ds_${0..1}.t_order_item_${0..1}
+    #        tableStrategy:
+    #          standard:
+    #            shardingColumn: order_id
+    #            shardingAlgorithmName: t_order_item_inline
+    #        keyGenerateStrategy:
+    #          column: order_item_id
+    #          keyGeneratorName: snowflake
+    #      t_account:
+    #        actualDataNodes: ds_${0..1}.t_account_${0..1}
+    #        tableStrategy:
+    #          standard:
+    #            shardingAlgorithmName: t_account_inline
+    #        keyGenerateStrategy:
+    #          column: account_id
+    #          keyGeneratorName: snowflake
+    #    defaultShardingColumn: account_id
+    #绑定表
+    #    bindingTables:
+    #      - t_order,t_order_item
+    #    defaultDatabaseStrategy:
+    #      standard:
+    #        shardingColumn: user_id
+    #        shardingAlgorithmName: database_inline
+    defaultTableStrategy:
+      none:
+
+    #分片策略(分片算法和分片键) -> 并且起一个名字,用作唯一标识定位该算法
+    shardingAlgorithms:
+    #      database_inline: # 分片策略名称
+    #        type: INLINE   #分片算法
+    #        props:
+    #          algorithm-expression: ds_${user_id % 2}
+    #      user_inline:
+    #        type: INLINE
+    #        props:
+    #          #如果类型是inline的话,范围必须加上allow-range-query-with-inline-sharding为true
+    #          #但是其实也是类似于无路由键的情况
+    #          algorithm-expression: user_${id % 2}
+    #          allow-range-query-with-inline-sharding: true
+    #      user_class_base:
+    #        type: CLASS_BASED
+    #        ##ClassBasedShardingAlgorithm,然后通过反射创建实例
+    #        props:
+    #          strategy: STANDARD
+    #          algorithmClassName: com.huyu.sharding.blogHashStandardShardingAlgorithm
+    #          sharding-count: 2
+
+
+
+
+    #主键生成算法,雪花算法
+    #    keyGenerators:
+    #      snowflake:
+    #        type: SNOWFLAKE
+
+    #审计算法
+  #    auditors:
+  #      sharding_key_required_auditor:
+  #        type: DML_SHARDING_CONDITIONS
+
+
+
+  #广播表
+#  - !BROADCAST
+#    tables:
+#      - t_address
+
+
+# 是否打印sql(会打印出逻辑sql和实际执行的sql)
+props:
+  sql-show: false
